@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+  <link rel="stylesheet" href="signin.css" />
+  <link rel="icon" type="image/png"  href="icone.png"> <!-- Substitua pelo caminho real do seu ícone -->
+  <style>
+    /* Importação de fontes do Google */
+    @import url('https://fonts.googleapis.com/css2?family=NovaFonte:wght@400&display=swap');
+
+    /* Estilo do cabeçalho "Entrar" */
+    .login-header {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #4bee2b !important; /* Corrigido para verde mais claro */
+      font-family: 'Robot', sans-serif; /* Substitua 'NovaFonte' pela fonte desejada */
+    }
+
+    /* Estilo específico para a palavra "Login" */
+    .login-header {
+      font-family: 'Robot', sans-serif; /* Substitua 'NovaFonte' pela fonte desejada */
+    }
+
+    /* Estilo do corpo da página */
+    body {
+      background-image: url("bg-signin.png");
+      background-repeat: no-repeat;
+      background-size: 100% 100%;
+      background-attachment: fixed;
+      background-position: center;
+      color: white;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Estilo do contêiner principal */
+    .container {
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      align-items: center;
+      height: 100vh;
+      margin-top: 20px;
+    }
+
+    /* Restante do seu estilo... */
+  </style>
+  <title>WIN INFINITY</title>
+</head>
+<body>
+  <div class="container">
+    <div class="card">
+      <h1 class="login-header">Login</h1>
+
+      <div id="msgError"></div>
+
+      <div class="label-float">
+        <input type="text" id="usuario" placeholder="" required />
+        <label id="userLabel" for="usuario">E-mail</label>
+      </div>
+
+      <div class="label-float">
+        <input type="password" id="senha" placeholder="" required />
+        <label id="senhaLabel" for="senha">Senha</label>
+        <i class="fa fa-eye" aria-hidden="true"></i>
+      </div>
+
+      <div class="justify-center">
+        <button id="btnEntrar">Entrar</button>
+      </div>
+
+      <!-- Links de cadastro -->
+      <div class="justify-center">
+        <p>
+          Crie seu login |
+          <a href="https://wa.me/5511969296774?text=Ol%C3%A1.+Quero+tirar+uma+d%C3%BAvida%2C+por+favor.">
+            Cadastre-se
+          </a>
+        </p>
+      </div>
+
+      <!-- Botão de suporte -->
+      <div class="justify-center support-button-container">
+        <button class="support-button" onclick="window.location.href='https://wa.me/5511969296774?text=Ol%C3%A1.+Quero+tirar+uma+d%C3%BAvida%2C+por+favor.'">
+          Suporte
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://www.gstatic.com/firebasejs/9.6.7/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.7/firebase-auth-compat.js"></script>
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyD4gqm1SJmzf60vuTicTN8nrgFimyneUlw",
+      authDomain: "win-infinity.firebaseapp.com",
+      projectId: "win-infinity",
+      storageBucket: "win-infinity.appspot.com",
+      messagingSenderId: "367398531726",
+      appId: "1:367398531726:web:b308d4dc617fb8a970cfdf"
+    };
+    firebase.initializeApp(firebaseConfig);
+  </script>
+
+  <script>
+    document.getElementById('btnEntrar').addEventListener('click', function () {
+      const usuario = document.getElementById('usuario').value.trim();
+      const senha = document.getElementById('senha').value.trim();
+
+      if (usuario.toLowerCase() === 'admin') {
+        // Redirecionar para o seu site desejado
+        window.location.href = 'https://console.firebase.google.com/u/0/project/win-infinity/authentication/users?hl=pt-br';
+      } else {
+        // Exibir mensagem de erro caso as credenciais sejam inválidas
+        document.getElementById('msgError').innerHTML = 'Credenciais inválidas. Tente novamente.';
+      }
+    });
+  </script>
+
+  <script src="signin.js"></script>
+  <script src="validations.js"></script>
+  <script src="loading.js"></script>
+</body>
+</html>
