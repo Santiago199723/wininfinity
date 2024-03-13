@@ -1,0 +1,714 @@
+
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>GERENCIAMENTO INFINITYWIN</title>
+
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <style>
+            
+            
+            * {
+                margin: 0;
+                padding: 0;
+                text-decoration: none;
+                box-sizing: border-box;
+                border-spacing: 0;
+            }
+            
+            input::-webkit-outer-spin-button,
+            input::-webkit-inner-spin-button {
+                -webkit-appearance: none;
+            }
+            
+            .container {
+  position: fixed;
+  left: 45px; /* ajuste conforme necessário */
+  top: -25px; /* ajuste conforme necessário */
+}
+
+.container img {
+  width: 160px; /* ajuste o tamanho conforme necessário */
+  height: auto; /* para manter a proporção */
+}
+
+
+       html, body {
+                height: 100%;
+                width: 100%;         
+                background: linear-gradient(to bottom, black, black, rgb(0,0,0));   
+            }
+            
+            #logo {
+                z-index: 10;
+                position: fixed;
+                top: calc(50% - 100px);
+                left: calc(50% - 100px);
+                height: 200px;
+                width: 200px;
+                bottom: 0;
+                right: 0;
+                opacity: 8%;
+            }
+
+/* Estilo para o botão "Win" selecionado */
+.resRadio[value="1"]:checked + span {
+    background-color: green; /* Cor de fundo verde para o botão "Win" selecionado */
+    color: white; /* Cor do texto branco para o botão "Win" selecionado */
+}
+
+/* Estilo para o botão "Loss" selecionado */
+.resRadio[value="0"]:checked + span {
+    background-color: red; /* Cor de fundo vermelha para o botão "Loss" selecionado */
+    color: white; /* Cor do texto branco para o botão "Loss" selecionado */
+}
+
+
+            
+            #header {
+                display: block;
+                height: 56px;
+                width: 100%;
+                color: white;
+                font-family: 'Robot';
+                font-size: 17px;
+                letter-spacing: 6px;
+                text-align: center;
+                line-height: 56px;
+                background: linear-gradient(to bottom, black, black);
+                box-shadow: 0px 0px 12px 2px black;
+                text-shadow: 0px 2px 4px rgba(255,255,255,0.5);
+            }
+
+            #content {
+                z-index: 11;
+                height: calc(100% - 56px);
+                width: 100%;
+                display: block;
+                position: relative;
+                font-family: 'Arial';
+                text-align: center;
+                color: white;
+            }
+
+            h1 {
+      margin-top: 5px;
+      font-size: 36px;
+      color: #f5f9f5; /* Verde claro */
+      text-shadow: 2px 2px 4px rgba(234, 234, 230, 0.3); /* Sombra de texto */
+      font-weight: bold; /* Negrito */
+    }
+
+
+            #content > h2 {
+                color: white;
+                font-family: PoppinsMedium;
+                font-size: 30px;
+                letter-spacing: 1px;
+                text-align: center;
+                margin: 5px 0 15px 0;
+                text-shadow: 0px 2px 5px rgba(255,255,255,0.25);
+            }
+
+            #content > input {
+                display: block;
+                /* width  */
+            }
+
+            /* Mobile */
+            @media screen and (max-width: 768px) {
+                #content > h2 {
+                    font-size: 24px;
+                }
+
+                tr.paddingTop > td {
+                    padding-top: 10px;
+                    font-size: 12px;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <!--<div style="padding: 15px 0; font-size: 15px; font-family: 'Quicksand'; text-align: center; background-color: #b61a1a; color: #ddd;"><b style="font-size: 26px; color: white;">🚨 AVISO! 🚨</b><br/>Manutenção temporária!<br/>Esta ferramenta pode apresentar instabilidade.</div>-->
+        <div id="header"></div>
+        <div id="content">
+                    <div id="tablesDiv" style="width: 100%;">
+                        <div class="container">
+                            <img src="icone2.png" alt="Descrição da Imagem">
+                          </div>
+                <span id="loginMenu"><span id="userEmail"></span> <span id="logoutButton"></span></span>
+                <h1 style="margin-top: 5px; font-size: 45px;">GERENCIAMENTO INFINITYWIN</h1>
+                </br>
+                </br>
+            </br>
+            </div>
+                <div class="tableContainer" style="position: relative;">
+                    <table id="cicleTable">
+                        <tbody>
+                            <tr>
+                                <td>Valor da Banca</td>
+                                <td>Total de Operaçoes</td>
+                                <td>Acertos Esperados</td>
+                                <td>Payout Atual</td>
+                            </tr>
+                            <tr>
+                                <td><input id="inputBalance" type="text" placeholder="R$ 0,00" value="50.0" /></td>
+                                <td><input id="inputTotalTrades" type="text" placeholder="7" value="7" /></td>
+                                <td><input id="inputWins" type="text" placeholder="2" value="2" /></td>
+                                <td><input id="inputPayoff" type="text" placeholder="1.90" value="1.90" /></td>
+                            </tr>
+                            <tr class="paddingTop">
+                                <td id="finalBalance">- Saldo -<br/><b>R$0.00</b><br/>- Meta esperada -<br/><b>R$0.00 (0.00%)</b></td>
+                                <td id="cicleStatus">Erros Permitidos:<br/>0/0 Erros"</td>
+                                <td id="cicleStatus2">Acertos: 0.00%<br/>0/0 Acertos</td>
+                                <td><input onclick="Sheet_Update(1, true)" id="inputWins" type="button" placeholder="2" value="LIMPAR TUDO" style="background-color: #56db31; border-bottom: 3px solid #05240f; padding: 16px 0px;!important; width: 100%;" /></td>
+                                <!-- <td><input id="inputPayoff" type="button" placeholder="1.8" value="SALVAR CICLO" style="background-color: #56db31; border-bottom: 3px solid #56db31;"/></td> -->
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="tableContainer" style="height: 250px; overflow-y: scroll;">
+                    <table id="dataTable">
+                        <tr>
+                            <td>Resultado</td>
+                            <td>Entrada</td>
+                            <td>Retorno</td>
+                            <td>Saldo do Ciclo</td>
+                            <td>Status</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>W &nbsp;/&nbsp; L<br/><input type="radio" name="resRadio" value="1" /> &nbsp;&nbsp;&nbsp;<input type="radio" name="resRadio" value="0" /></td>
+                            <td><span id="op01-lot-size"></span></td>
+                            <td></td>
+                            <td></td>
+                            <td><span id=""></span></td>
+                            <td><span id=""></span></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        
+            </div>
+            <div id="loadingDiv"> alt="Carregando..."></div>
+            <style>
+                #loginMenu {
+                    display: block;
+                    position: relative;
+                    text-align: left;
+                    width: 400px;
+                    max-width: 90%;
+                    margin: 0 auto; 
+                    padding: 10px 0px;
+                }
+
+                #logoutButton {
+                    position: absolute;
+                    top: 10px;
+                    right: 0;
+                    color: #b61a1a;
+                    font-weight: bold;
+                }
+
+                #cicleTable input {
+                    width: 70%;
+                    margin-top: 4px;
+                    padding: 8px 0px;
+                    color: white;
+                    background-color: rgba(0,0,0,0.2);
+                    border: none;
+                    border-bottom: 2px solid #1bd918;
+                    border-radius: 5px;
+                    font-size: 14px;
+                    text-align: center;
+                    transition: .4s;
+                    cursor: pointer;
+                }
+
+                #cicleTable input:focus {
+                    border-bottom: 2px solid #1bd918;
+                }
+
+                .tableContainer { margin-top: 20px; }
+                .tableContainer, #cicleTable, #dataTable {
+                    width: 100%;
+                }
+
+                #dataTable {
+                    overflow: auto;
+                }
+
+                #dataTable td {
+                    font-size: 18px;
+                    padding: 6px 0px;
+                    border-bottom: 1px solid rgba(255,255,255,0.1);
+                }
+
+                #dataTable tr:first-child {
+                    font-size: 14px;
+                    background-color: rgba(0,0,0,0.2);
+                    padding: 10px 0px;
+                }
+
+                
+                #dataTable tr:first-child td:first-child {
+                    border-top-left-radius: 5px;
+                }
+
+                #dataTable tr:first-child td:last-child {
+                    border-top-right-radius: 5px;
+                }
+
+                #dataTable span {
+                    text-align: center;
+                }
+
+                /* customizing scroll color */
+                .tableContainer::-webkit-scrollbar {
+                    width: 10px;
+                    background: transparent;
+                }
+
+                .tableContainer::-webkit-scrollbar-thumb {
+                    width: 8px;
+                    border-radius: 3px;
+                    background-color: #1bd918;
+                }
+                
+
+                tr.paddingTop > td {
+                    padding-top: 10px;
+                }
+
+                #loadingDiv {
+                    z-index: 100;
+                    display: none;
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background-color: rgba(0,0,0,0.8);
+                    opacity: 0.3;
+                }
+
+                #loadingDiv > img {
+                    position: absolute;
+                    top: calc(50% - 100px);
+                    left: calc(50% - 100px);
+                }
+
+                #bannersDiv {
+                    position: absolute;
+                    bottom: 0;
+                    width: 100%;
+                    overflow: hidden;
+                }
+                #bannersDiv > .buttonDiv {
+                    z-index: 11;
+                    display: block;
+                    position: absolute;
+                    bottom: 0;
+                    width: 40px;
+                    height: 40px;
+                    color: white;
+                    background-color: rgba(0,0,0,0.5);
+                    text-align: center;
+                    font-size: 30px;
+                    font-weight: bold;
+                    cursor: pointer;
+                }
+                #bannersDiv > img {
+                    z-index: 10;
+                    width: 100%;
+                    max-width: 1000px;
+                    display: block;
+                    position: absolute;
+                    bottom: 0px;
+                    left: 150%;
+                    transition: 2.0s;
+                    transform: translateX(-50%);
+                    opacity: 1;
+                    background-position: center;
+                    background-size: contain;
+                    background-repeat: no-repeat;
+                    cursor: pointer;
+                }
+                #bannersDiv > img.active {
+                    z-index: 11;
+                    left: 50%;
+                }
+                #bannersDiv > img.inactive {
+                    left: -50%;
+                }
+            </style>
+            <script>
+                const userID = '1912',
+                    userSSID = 'KeomVLxKOBiRyqLRX7IHdgVVlOdifoE046S51gW6vI4mjXU50yh1HLfEd2kOVJ48';
+                
+                var updateRequest = 0, loadingTimeout = 0;
+                var loadingDiv = document.getElementById('loadingDiv');
+                var inputBalance = document.getElementById('inputBalance'),
+                    inputTotalTrades = document.getElementById('inputTotalTrades'),
+                    inputWins = document.getElementById('inputWins'),
+                    inputPayoff = document.getElementById('inputPayoff'),
+                    finalBalance = document.getElementById('finalBalance'),
+                    cicleStatus = document.getElementById('cicleStatus'),
+                    cicleStatus2 = document.getElementById('cicleStatus2');
+
+                var timeStart = 0;
+
+                // Conectando websocket
+                var socket = null,
+                    socketInterval = 0;
+
+                function Socket_Create() {
+                    socket = null;
+                    socket = new WebSocket('wss://ws1.estrategiastarget.com:8085');
+                    socket.addEventListener('open', function (event) {
+                        clearInterval(socketInterval);
+                        Sheet_Update(0);
+                    });
+
+                    socket.addEventListener('close', function (event) {
+                        clearInterval(socketInterval);
+                        socketInterval = setInterval(() => {
+                            console.log('[Aviso] Erro de conexão. Reconectando...');
+                            Socket_Create();
+                        }, 10000);
+                    });
+
+                    socket.addEventListener('message', function (event) {
+                        clearInterval(socketInterval);
+                        console.log('Tempo gasto -> '+(Date.now() - timeStart));
+                        console.log('Recebido do servidor:\n', event.data);
+                        var data = JSON.parse(event.data);
+                        if(data['type'] == 'update') {
+                            let tradesData = data['data'];
+                            let lossAllowed = parseInt(inputTotalTrades.value) - parseInt(inputWins.value),
+                                lossCount = 0,
+                                winsCount = 0;
+                            let lastRow = "", lastBalance = 0, profitTarget = parseFloat(data['data']['profitTarget']);
+                            
+                            let cicleDone = false;
+                            for(let i = 0; i < parseInt(inputTotalTrades.value); i++) {
+                                if(i < tradesData['lots'].length) {
+                                    if(tradesData['lots'][i] == "") tradesData['lots'][i] = 0;
+                                    if(tradesData['profit'][i] == "") tradesData['profit'][i] = 0;
+                                    if(tradesData['balance'][i] == "") tradesData['balance'][i] = 0;
+                                    if(document.getElementById(`op-${i}-lotSize`)) {
+                                        document.getElementById(`op-${i}-lotSize`).innerHTML = "R$ "+parseFloat(tradesData['lots'][i]).toFixed(2);
+                                        document.getElementById(`op-${i}-profit`).innerHTML = (parseFloat(tradesData['profit'][i]) > 0 ? "+" : "")+ "R$ "+parseFloat(tradesData['profit'][i]).toFixed(2)+" ("+(100 * parseFloat(tradesData['profit'][i]) / parseFloat(inputBalance.value)).toFixed(2)+" %)";
+                                        
+
+                                        const selectedRadio = document.querySelector(`input[name=op-${i}-resRadio]:checked`);
+                                        if(selectedRadio) {
+                                            if(parseFloat(tradesData['profit'][i]) == 0) {
+                                                lossCount++;
+                                                document.getElementById(`op-${i}-profit`).style.color = 'red';
+                                            } else if(parseFloat(tradesData['profit'][i]) > 0) {
+                                                winsCount++;
+                                                document.getElementById(`op-${i}-profit`).style.color = '#56db31';
+                                            }
+                                            if(parseFloat(tradesData['balance'][i]) > inputBalance.value) {
+                                                document.getElementById(`op-${i}-balance`).style.color = '#56db31';
+                                            } else if(parseFloat(tradesData['balance'][i]) < inputBalance.value) {
+                                                document.getElementById(`op-${i}-balance`).style.color = 'red';
+                                            
+                                            }
+
+                                            if(lossCount > lossAllowed) {
+                                                lastBalance = 0;
+                                                cicleDone = true;
+                                                cicleStatus.innerHTML = "DERROTA";
+                                                cicleStatus2.innerHTML = "CICLO ENCERRADO!";
+                                                alert("     CICLO ENCERRADO:     \n       DERROTA       \n\n😪😞Eita, você atingiu o limite de erros permitidos! Respeite o seu gerenciamento que vai dar certo!\n\nPor favor, inicie um novo ciclo.");
+                                                continue;
+                                            } else if(winsCount >= parseInt(inputWins.value)) {
+                                                lastBalance = inputBalance.value * (1 + (profitTarget / 100));
+                                                cicleDone = true;
+                                                cicleStatus.innerHTML = "VITÓRIA!";
+                                                cicleStatus2.innerHTML = "CICLO ENCERRADO!";
+                                                alert("     CICLO ENCERRADO:     \n       VITÓRIA!       \n\n 👏👏 Parabéns, trader!! Você atingiu o limite de acertos! 🚀🏆\n\nPor favor, inicie um novo ciclo.");
+                                                continue;
+                                            } 
+
+
+                                            var nextRow = document.getElementById(`op-${i}`).nextElementSibling;
+                                            if(nextRow) {
+                                                lastRow = nextRow;
+                                                nextRow.style.opacity = 1;
+                                                nextRow.style.background = "";
+
+                                                let radios = nextRow.querySelectorAll('input');
+                                                for(let i = 0; i < radios.length; i++) {
+                                                    radios[i].removeAttribute('disabled');
+                                                }
+                                            }
+                                        }
+                                        document.getElementById(`op-${i}-balance`).innerHTML = "R$ "+parseFloat((winsCount + lossCount) > 0 ? tradesData['balance'][i + 1] : inputBalance.value).toFixed(2);
+                                        if(winsCount + lossCount > 0) lastBalance = parseFloat(tradesData['balance'][i]); else lastBalance = parseFloat(inputBalance.value);
+                                    }
+                                } else {
+                                    if(cicleDone) {
+                                        document.getElementById(`op-${i}`).style.opacity = 0.5;
+                                        document.getElementById(`op-${i}`).style.background = "rgba(22,22,22,.7)";
+                                        document.getElementById(`op-${i}-lotSize`).innerHTML = "R$ 0.00";
+                                        document.getElementById(`op-${i}-profit`).innerHTML = "R$ 0.00";
+                                        document.getElementById(`op-${i}-profit`).style.color = 'white';
+                                        document.getElementById(`op-${i}-balance`).innerHTML = "R$ 0.00";
+                                        document.getElementById(`op-${i}-balance`).style.color = 'white';
+
+                                        var line = document.getElementById(`op-${i}`);
+                                        if(line) {
+                                        console.log(i+" -> line found");
+                                            let radios = line.querySelectorAll('input');
+                                            console.log(radios);
+                                            for(let i = 0; i < radios.length; i++) {
+                                                radios[i].setAttribute('disabled', 'true');
+                                                radios[i].checked = false;
+                                            }
+                                        }
+
+                                    }
+                                }
+                            }
+
+                            if(!cicleDone) {
+                                cicleStatus.innerHTML = "Erros Permitidos:<br/>"+lossCount+"/"+lossAllowed+" Erros";
+                                cicleStatus2.innerHTML = "Acertos: <b>"+(100 * (inputWins.value / inputTotalTrades.value)).toFixed(2)+"</b>%<br/>"+winsCount+"/"+inputWins.value+" Acertos";
+                            }
+                            finalBalance.innerHTML = "- Saldo- <br/><b>R$ "+(winsCount+lossCount == 0 ? parseFloat(inputBalance.value) : lastBalance).toFixed(2)+"</b><br/>- Projeção Atual -<br/><b style=\"color: #56db31;\">R$ "+(parseFloat(inputBalance.value) * (1 + (profitTarget / 100))).toFixed(2)+" ("+(profitTarget).toFixed(2)+" %)</b>";
+                            
+                            if(cicleDone) {
+                                if(lastRow) {
+                                    let nextRow = lastRow.nextElementSibling;
+                                    if(nextRow) {
+                                        nextRow.style.opacity = 0.5;
+                                        nextRow.style.background = "rgba(22,22,22,.7)";
+
+                                        let radios = lastRow.nextElementSibling.querySelectorAll('input');
+                                        for(let i = 0; i < radios.length; i++) {
+                                            radios[i].setAttribute('disabled', 'true');
+                                            radios[i].checked = false;
+                                        }
+                                    } else {
+                                        if(lossCount + winsCount < parseInt(inputTotalTrades.value)) {
+                                            lastRow.style.opacity = 0.5;
+                                            lastRow.style.background = "rgba(22,22,22,.7)";
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        if(loadingTimeout != 0) clearTimeout(loadingTimeout);
+                        loadingDiv.style.display = 'none';
+                    });
+                }
+                Socket_Create();
+                
+
+
+                // Clear sessionId cookie
+                async function User_GetData() {
+                    let request = await fetch('../assets/php/tools/user-validation.php', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ sessionId: userSSID })
+                    });
+
+                    if(request.ok) {
+                        let response = await request.text();
+                        console.log(response);
+                        response = JSON.parse(response);
+                        if(response['status'] == 'ok') {
+                            document.getElementById('userEmail').innerHTML = response['userEmail'];
+                        } else {
+                            if(reponse['error'] == 'invalid-session') alert("Sua sessão expirou!\nPor favor, faça login novamente.");
+                            else alert("Houve algum erro!\nPor favor, tente novamente mais tarde.\n\nCódigo de erro:  "+response['error']);
+                            User_Logout();
+                        }
+                    }
+                }
+
+                
+                async function Sheet_Update(mode = 0, updateBoth = false) {
+                    if(mode == 0) {
+                        loadingDiv.style.display = 'block';
+                        if(loadingTimeout != 0) clearTimeout(loadingTimeout);
+                        loadingTimeout = setTimeout(() => {
+                            loadingDiv.style.display = 'none';
+                        }, 5000);
+                        let tradesData = [];
+                        let tradesElements = document.getElementsByClassName('resRadio');
+                        for(let i = 0; i < tradesElements.length; i++) {
+                            if(tradesElements[i].checked) tradesData.push(tradesElements[i].value);
+                        }
+                        
+
+                        let sheetData = {
+                            balance: inputBalance.value,
+                            totalTrades: inputTotalTrades.value,
+                            totalWins: inputWins.value,
+                            payoff: inputPayoff.value.replace(',', '.'),
+                            trades: tradesData
+                        };
+                        console.log(sheetData);
+                        timeStart = Date.now();
+                        socket.send(JSON.stringify({ type: 'update', userID: userID, data: sheetData }));
+                        updateRequest = 0;
+                    }  else if(mode == 1) {
+                        let totalTrades = document.getElementById('inputTotalTrades').value; 
+                        let dataTable = document.getElementById('dataTable');
+
+                        //  atualizar tabela mantendo valores antigos
+                        dataTable.innerHTML = `
+                            <tr>
+                                <td>Resultado</td>
+                                <td>Entradas</td>
+                                <td>Retorno</td>
+                                <td>Saldo do Ciclo</td>
+                            </tr>
+                        `;
+
+                        for(let i = 0; i < totalTrades; i++) {
+                            let row = document.createElement('tr');
+                            let radioOff = "", radioCheckWin = "", radioCheckLoss = "";
+                            row.setAttribute('id', `op-${i}`);
+                            if(i > 0) {
+                                row.style.opacity = 0.5;
+                                row.style.background = "";
+                                radioOff = "disabled";
+                            }
+
+                            row.innerHTML = `
+                                <td>Win &nbsp;/&nbsp; Loss<br/><input type="radio" class="resRadio" name="op-${i}-resRadio" value="1" onclick="Sheet_Update(0)" ${radioOff} /> &nbsp;&nbsp;&nbsp;<input type="radio" class="resRadio" name="op-${i}-resRadio" value="0" onclick="Sheet_Update(0)" ${radioOff} /></td>
+                                <td><span id="op-${i}-lotSize">R$ 0.00</span></td>
+                                <td><span id="op-${i}-profit">R$ 0.00</span></td>
+                                <td><span id="op-${i}-balance">R$ 0.00</span></td>
+                            `;
+                            dataTable.appendChild(row);
+                        }
+
+                        if(updateBoth) Sheet_Update(0);
+                    }
+                }
+
+                function User_Logout() {
+                    document.cookie = 'sessionId=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+                    window.location.reload();
+                }
+
+                var bannerLoopInterval = 0, bannerLoopTimeout = 0, bannerLoopTime = 10000;
+                function Util_ImageUpdate(mode = 0) {
+                    if(mode == 0) {
+                        document.getElementById('bannersDiv').style.height = (document.documentElement.clientHeight - 100 - document.getElementById('tablesDiv').offsetHeight)+"px";
+                        let buttonsDiv = document.getElementById('bannersDiv').querySelectorAll('.buttonDiv');
+                        for(let i = 0; i < buttonsDiv.length; i++) {
+                            // buttonsDiv[i].style.height = document.getElementById('firstBanner').offsetHeight+"px";
+                        }
+
+                        clearInterval(bannerLoopInterval);
+                        bannerLoopInterval = setInterval(() => {
+                            if(bannerLoopTime <= 0) {
+                                let banners = document.getElementById('bannersDiv').querySelectorAll('img');
+                                let activeBanner = document.getElementById('bannersDiv').querySelector('img.active');
+                                let nextBanner = activeBanner.nextElementSibling;
+                                if(nextBanner.tagName != 'IMG' || !nextBanner) nextBanner = banners[0];
+                                // console.log(nextBanner);
+                                nextBanner.classList.add('active');
+                                activeBanner.classList.add('inactive');
+                                activeBanner.classList.remove('active');
+                                bannerLoopTimeout = setTimeout(() => {
+                                    activeBanner.style.transition = '0s';
+                                    activeBanner.classList.remove('inactive');
+                                    setTimeout(() => {
+                                        //removing transition property
+                                        activeBanner.style.transition = '';
+                                    }, 1000);
+                                }, 2000);
+                                bannerLoopTime = 10000;
+                            }
+                            bannerLoopTime -= 100;
+                        }, 100);
+                    } else {
+                        clearTimeout(bannerLoopTimeout);
+                        bannerLoopTime = 10000;
+                        var bannerList = document.getElementById('bannersDiv').querySelectorAll('img');
+                        if(mode == 1) {
+                            let firstValue = bannerList[0].getAttribute('src');
+                            for(let i = 0; i < bannerList.length - 1; i++) {
+                                bannerList[i].setAttribute('src', bannerList[i + 1].getAttribute('src'));
+                            }
+                            bannerList[bannerList.length - 1].setAttribute('src', firstValue);
+                        } else {
+                            let lastValue = bannerList[bannerList.length - 1].getAttribute('src');
+                            for(let i = bannerList.length - 1; i > 0; i--) {
+                                bannerList[i].setAttribute('src', bannerList[i - 1].getAttribute('src'));
+                            }
+                            bannerList[0].setAttribute('src', lastValue);
+                        }
+                    }
+                }
+
+                function Util_NewTab(url) {
+                    window.open(url, '_blank');
+                }
+
+                // detecting enter pressing in inputs inside cicleTable
+                document.querySelectorAll('#cicleTable input').forEach(function (input) {
+                    input.addEventListener('focus', function (event) {
+                        //set atribute
+                        input.setAttribute('oldValue', input.value);
+                    });
+
+                    input.addEventListener('keyup', function (event) {
+                        // if enter any of enter keys (numpad or not)
+                        if(event.keyCode == 13) {
+                            input.blur();
+                            /*
+                            let nextInput = input.parentElement.parentElement.nextElementSibling.querySelector('input');
+                            if(nextInput) nextInput.focus();
+                            else input.blur();
+                            */
+                        }
+                    });
+
+                    input.addEventListener('blur', function (event) {
+                        // if value changed
+                        if(input.value != input.getAttribute('oldValue')) {
+                            // checking if input.value is number
+                            input.value = input.value.replace(',', '.');
+                            if(isNaN(input.value) || input.value.trim() == "") {
+                                alert("Valor inválido: "+input.value+".\n\nDigite apenas números!");
+                                input.value = input.getAttribute('oldValue');
+                                return;
+                            }
+                            
+                            if(input.getAttribute('id') == "inputTotalTrades") {
+                                if(input.value > 25 || input.value < 2) {
+                                    alert("Valor inválido: "+input.value+".\n\nO número de operações deve ser entre 2 e 25!");
+                                    input.value = input.getAttribute('oldValue');
+                                    return;
+                                }
+                                Sheet_Update(1, true);
+                            } else {
+                                Sheet_Update(0, true);
+                            }
+                        }
+                    });
+                });
+
+                document.getElementById('logoutButton').addEventListener('click', User_Logout);
+                document.addEventListener('DOMContentLoaded', () => { Sheet_Update(1, true); User_GetData(); Util_ImageUpdate(); });
+                //resize
+                document.addEventListener('resize', () => { Util_ImageUpdate(); });
+            </script>
+                </div>
+        <img id="logo" src="../assets/images/target-transparent.png">
+    </body>
+</html>
