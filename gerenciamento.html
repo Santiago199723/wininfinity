@@ -44,10 +44,10 @@
             #logo {
                 z-index: 10;
                 position: fixed;
-                top: calc(50% - 100px);
-                left: calc(50% - 100px);
-                height: 200px;
-                width: 200px;
+                top: calc(60% - 350px);
+                left: calc(50% - 350px);
+                height: 500px;
+                width: 600px;
                 bottom: 0;
                 right: 0;
                 opacity: 8%;
@@ -190,7 +190,15 @@
                     </table>
                 </div>
             </div>
-        
+            <div id="bannersDiv">
+                <img id="firstBanner" class="active" src="1.webp" alt="Banner 01" onclick="Util_NewTab('https://bit.ly/mentoria_promo%C3%A7%C3%A3o')" />
+                <img src="2.webp" alt="Banner 02" onclick="Util_NewTab('https://www.instagram.com/gstrader_ob/')" />
+                <img src="3.webp" alt="Banner 03" onclick="Util_NewTab('https://bit.ly/mentoria_promo%C3%A7%C3%A3o')" />
+                <img src="4.webp" alt="Banner 04" onclick="Util_NewTab('https://www.instagram.com/gstrader_ob/')" />
+                <div class="buttonDiv" style="left: 0;" onclick="Util_ImageUpdate('1')"><</div>
+                <div class="buttonDiv" style="right: 0;" onclick="Util_ImageUpdate('2')">></div>
+            </div>
+            <div id="loadingDiv"><img height="200px" width="200px" src="Home1.png" alt="Carregando..."></div>
             </div>
             <div id="loadingDiv"> alt="Carregando..."></div>
             <style>
@@ -316,14 +324,14 @@
                     color: white;
                     background-color: rgba(0,0,0,0.5);
                     text-align: center;
-                    font-size: 30px;
+                    font-size: 28px;
                     font-weight: bold;
                     cursor: pointer;
                 }
                 #bannersDiv > img {
                     z-index: 10;
-                    width: 100%;
-                    max-width: 1000px;
+                    width: 400%;
+                    max-width: 410px;
                     display: block;
                     position: absolute;
                     bottom: 0px;
@@ -343,6 +351,9 @@
                 #bannersDiv > img.inactive {
                     left: -50%;
                 }
+
+
+
             </style>
             <script>
                 const userID = '1912',
@@ -604,56 +615,58 @@
                 }
 
                 var bannerLoopInterval = 0, bannerLoopTimeout = 0, bannerLoopTime = 10000;
-                function Util_ImageUpdate(mode = 0) {
-                    if(mode == 0) {
-                        document.getElementById('bannersDiv').style.height = (document.documentElement.clientHeight - 100 - document.getElementById('tablesDiv').offsetHeight)+"px";
-                        let buttonsDiv = document.getElementById('bannersDiv').querySelectorAll('.buttonDiv');
-                        for(let i = 0; i < buttonsDiv.length; i++) {
-                            // buttonsDiv[i].style.height = document.getElementById('firstBanner').offsetHeight+"px";
-                        }
 
-                        clearInterval(bannerLoopInterval);
-                        bannerLoopInterval = setInterval(() => {
-                            if(bannerLoopTime <= 0) {
-                                let banners = document.getElementById('bannersDiv').querySelectorAll('img');
-                                let activeBanner = document.getElementById('bannersDiv').querySelector('img.active');
-                                let nextBanner = activeBanner.nextElementSibling;
-                                if(nextBanner.tagName != 'IMG' || !nextBanner) nextBanner = banners[0];
-                                // console.log(nextBanner);
-                                nextBanner.classList.add('active');
-                                activeBanner.classList.add('inactive');
-                                activeBanner.classList.remove('active');
-                                bannerLoopTimeout = setTimeout(() => {
-                                    activeBanner.style.transition = '0s';
-                                    activeBanner.classList.remove('inactive');
-                                    setTimeout(() => {
-                                        //removing transition property
-                                        activeBanner.style.transition = '';
-                                    }, 1000);
-                                }, 2000);
-                                bannerLoopTime = 10000;
-                            }
-                            bannerLoopTime -= 100;
-                        }, 100);
-                    } else {
-                        clearTimeout(bannerLoopTimeout);
-                        bannerLoopTime = 10000;
-                        var bannerList = document.getElementById('bannersDiv').querySelectorAll('img');
-                        if(mode == 1) {
-                            let firstValue = bannerList[0].getAttribute('src');
-                            for(let i = 0; i < bannerList.length - 1; i++) {
-                                bannerList[i].setAttribute('src', bannerList[i + 1].getAttribute('src'));
-                            }
-                            bannerList[bannerList.length - 1].setAttribute('src', firstValue);
-                        } else {
-                            let lastValue = bannerList[bannerList.length - 1].getAttribute('src');
-                            for(let i = bannerList.length - 1; i > 0; i--) {
-                                bannerList[i].setAttribute('src', bannerList[i - 1].getAttribute('src'));
-                            }
-                            bannerList[0].setAttribute('src', lastValue);
-                        }
-                    }
-                }
+function Util_ImageUpdate(mode = 0) {
+    if(mode == 0) {
+        document.getElementById('bannersDiv').style.height = (document.documentElement.clientHeight - 100 - document.getElementById('tablesDiv').offsetHeight)+"px";
+        let buttonsDiv = document.getElementById('bannersDiv').querySelectorAll('.buttonDiv');
+        for(let i = 0; i < buttonsDiv.length; i++) {
+            // buttonsDiv[i].style.height = document.getElementById('firstBanner').offsetHeight+"px";
+        }
+
+        clearInterval(bannerLoopInterval);
+        bannerLoopInterval = setInterval(() => {
+            let banners = document.getElementById('bannersDiv').querySelectorAll('img');
+            let activeBanner = document.getElementById('bannersDiv').querySelector('img.active');
+            let nextBanner = activeBanner.nextElementSibling;
+            if(!nextBanner || nextBanner.tagName !== 'IMG') nextBanner = banners[0];
+            
+            nextBanner.classList.add('active');
+            activeBanner.classList.add('inactive');
+            activeBanner.classList.remove('active');
+            
+            bannerLoopTimeout = setTimeout(() => {
+                activeBanner.style.transition = '0s';
+                activeBanner.classList.remove('inactive');
+                setTimeout(() => {
+                    //removing transition property
+                    activeBanner.style.transition = '';
+                }, 1000);
+            }, 2000);
+        }, bannerLoopTime);
+    } else {
+        clearTimeout(bannerLoopTimeout);
+        bannerLoopTime = 10000;
+        var bannerList = document.getElementById('bannersDiv').querySelectorAll('img');
+        if(mode == 1) {
+            let firstValue = bannerList[0].getAttribute('src');
+            for(let i = 0; i < bannerList.length - 1; i++) {
+                bannerList[i].setAttribute('src', bannerList[i + 1].getAttribute('src'));
+            }
+            bannerList[bannerList.length - 1].setAttribute('src', firstValue);
+        } else {
+            let lastValue = bannerList[bannerList.length - 1].getAttribute('src');
+            for(let i = bannerList.length - 1; i > 0; i--) {
+                bannerList[i].setAttribute('src', bannerList[i - 1].getAttribute('src'));
+            }
+            bannerList[0].setAttribute('src', lastValue);
+        }
+    }
+}
+
+// Chame a função para iniciar a animação do banner automaticamente
+Util_ImageUpdate(0);
+
 
                 function Util_NewTab(url) {
                     window.open(url, '_blank');
@@ -709,6 +722,6 @@
                 document.addEventListener('resize', () => { Util_ImageUpdate(); });
             </script>
                 </div>
-        <img id="logo" src="../assets/images/target-transparent.png">
+        <img id="logo" src="Home1.png">
     </body>
 </html>

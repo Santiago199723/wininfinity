@@ -3,7 +3,7 @@
 <html lang="pt-BR">
 <head>
 	<meta charset="UTF-8">
-		<title>INDICADOR 1 - MEGA FLUXO PRÓ GAIN 2&#8211; SINAIS VIP 24h</title>
+		<title>INFINITYWIN&#8211; SINAIS VIP 24h</title>
 <meta name='robots' content='max-image-preview:large' />
 <link rel="alternate" type="application/rss+xml" title="Feed para tp87h &raquo;" href="https://tp87h.xyz/feed/" />
 <link rel="alternate" type="application/rss+xml" title="Feed de comentários para tp87h &raquo;" href="https://tp87h.xyz/comments/feed/" />
@@ -34,7 +34,7 @@ img.emoji {
   <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet" />
   <link rel="website icon" type="png" href="./assets/img/Untold Coding.png" />
   <link rel="stylesheet" href="assets/css/styles.css" />
-  <title>QUOTEX INTELLIGENCE BOT</title>
+  <title>INFINITYWIN</title>
   <style>
     /* Adicione este estilo para o iframe */
     #second-screen-iframe {
@@ -44,6 +44,14 @@ img.emoji {
       width: 100%;
       height: 100%;
       border: 0;
+    }
+
+    .green-text {
+      color: rgb(49, 221, 49);
+    }
+
+    .red-text {
+      color: rgb(244, 15, 15);
     }
   </style>
 </head>
@@ -289,8 +297,13 @@ src="https://www.facebook.com/tr?id=1465553214269014&ev=PageView&noscript=1"
     var timeResultText = "M1";
     document.getElementById("timeResult").textContent = timeResultText;
 
-    var order = Math.random() < 0.5 ? "PUT" : "CALL";
+    var order = Math.random() < 0.5 ? "COMPRA" : "VENDA";
     document.getElementById("orderResult").textContent = order;
+    if (order === "COMPRA") {
+      orderResult.innerHTML = "<span class='green-text'>" + order + "</span>";
+    } else {
+      orderResult.innerHTML = "<span class='red-text'>" + order + "</span>";
+    }
 
     document.getElementById("people-text").textContent = Math.floor(Math.random() * (215 - 56 + 1) + 56) + " PESSOAS RECEBERAM ESSA ENTRADA";
 	
