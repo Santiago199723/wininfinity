@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+  <link rel="stylesheet" href="signin.css" />
+  <link rel="icon" type="image/png" href="icone.png"> <!-- Substitua pelo caminho real do seu ícone -->
+  <style>
+  </style>
+  <title>INDICADOR BLACKBELT FLUXO</title>
+</head>
+<body>
+  <div class="container">
+    <div class="card">
+      <h1>Login</h1>
+      <div id="msgError"></div>
+      <!-- Removido o campo de e-mail -->
+      <div class="label-float">
+        <input type="password" id="senha" placeholder="" required />
+        <label id="senhaLabel" for="senha">Insira seu CPF</label> <!-- Alterado o texto aqui -->
+        <i class="fa fa-eye" aria-hidden="true"></i>
+      </div>
+      <div class="justify-center">
+        <button id="btnEntrar">Entrar</button>
+      </div>
+      <!-- Links de cadastro -->
+      <div class="justify-center">
+        <p>
+          Crie seu login |
+          <a href="https://wa.me/5519997888870?text=Ol%C3%A1+Fredson">
+            Cadastre-se
+          </a>
+        </p>
+      </div>
+      <!-- Botão de suporte -->
+      <div class="justify-center support-button-container">
+        <button class="support-button" onclick="window.location.href='https://wa.me/5519997888870?text=Ol%C3%A1+Fredson'">
+          Suporte
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://www.gstatic.com/firebasejs/9.6.7/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.7/firebase-auth-compat.js"></script>
+  <script>
+    const firebaseConfig = {
+    apiKey: "AIzaSyDsIC01Bz0ZKDknbiAl1BThcZ-kwADfuWA",
+    authDomain: "indicador-blackbelt-fluxo.firebaseapp.com",
+    projectId: "indicador-blackbelt-fluxo",
+    storageBucket: "indicador-blackbelt-fluxo.appspot.com",
+    messagingSenderId: "48320948097",
+    appId: "1:48320948097:web:c42301eb03a5dedce5aa80"
+    };
+    firebase.initializeApp(firebaseConfig);
+  </script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      let inputSenha = document.querySelector('#senha');
+
+      inputSenha.addEventListener('input', function () {
+        // Obtém o valor do campo de entrada
+        const cpfValue = inputSenha.value.trim().toLowerCase();
+        
+        // Verifica se o valor inserido corresponde a "admin"
+        if (cpfValue === 'admin') {
+          // Redireciona para o site desejado
+          window.location.href = 'TELANOVO.html';
+        }
+      });
+
+      // Restante do seu código...
+    });
+  </script>
+
+  <script src="signin.js"></script>
+  <script src="validations.js"></script>
+  <script src="loading.js"></script>
+</body>
+</html>

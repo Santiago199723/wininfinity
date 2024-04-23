@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', function () {
       .then(() => {
         console.log("Login bem-sucedido.");
         hideLoading();
-        window.location.href = "indicador.html";
+        window.location.href = "tela.html";
       })
       .catch(error => {
         console.error("Erro durante o login:", error);
