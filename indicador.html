@@ -208,7 +208,7 @@
         <button id="analysis-button" onclick="startAnalysis()">ANALISAR  ENTRADA  AO VIVO</button>
     </div>
     <script>
-        var wideBoxTexts = ["ANALISANDO O MERCADO...", "LENDO O GRÁFICO...", "IDENTIFICANDO PADRÕES...", "VERIFICANDO FLUXO DE VELAS...", "IDENTIFICANDO PRICE ACTION...","IDENTIFICANDO UM SINAL...", "IDENTIFIQUEI COM SUCESSO!!"];
+        var wideBoxTexts = ["ANALISANDO O MERCADO...", "LENDO O GRÁFICO...", "IDENTIFICANDO PADRÕES DE VELAS...", "VERIFICANDO FLUXO DE VELAS...", "IDENTIFICANDO PRICE ACTION...","IDENTIFICANDO UM SINAL...", "IDENTIFIQUEI COM SUCESSO!!"];
         var wideBoxIndex = 0;
         var analysisTimeOut;
     
@@ -222,7 +222,7 @@
                 shouldShowOTC = true;
             }
     
-            var names = ["AUD/JPY", "EUR/USD", "GBP/JPY", "USD/JPY"];
+            var names = ["AUD/JPY", "EUR/USD", "GBP/JPY", "USD/JPY","EUR/JPY","EUR/GBP", "GBP/USD","AUD/USD", "AUD/CAD", "AUD/JPY"];
             if (shouldShowOTC) {
                 names = names.map(name => name + "-OTC");
             }
@@ -257,19 +257,18 @@
                 clearInterval(wideBoxInterval);
                 wideBoxIndex = 0;
     
-                var name = names[Math.floor(Math.random() * names.length)];
-                document.getElementById("activeResult").textContent = name;
-    
-                var timeResultText = "M1";
+                // Gera um número aleatório entre 1 e 2 para representar M1 e M5, respectivamente
+                var timeframeRandom = Math.floor(Math.random() * 2) + 1;
+                var timeResultText = timeframeRandom === 1 ? "M1" : "M5";
                 document.getElementById("timeResult").textContent = timeResultText;
     
-                var order = Math.random() < 0.5 ? "COMPRA" : "VENDA";
-                document.getElementById("orderResult").textContent = order;
-                if (order === "COMPRA") {
-                    orderResult.innerHTML = "<span class='green-text'>" + order + "</span>";
-                } else {
-                    orderResult.innerHTML = "<span class='red-text'>" + order + "</span>";
-                }
+                // Lógica para exibir os sinais de acordo com o intervalo de tempo selecionado
+    var order = Math.random() < 0.5 ? "COMPRA" : "VENDA";
+    if (timeResultText === "M1") {
+        orderResult.innerHTML = order === "COMPRA" ? "<span class='green-text'>" + order + "</span>" : "<span class='red-text'>" + order + "</span>";
+    } else if (timeResultText === "M5") {
+        orderResult.innerHTML = order === "COMPRA" ? "<span class='blue-text'>" + order + "</span>" : "<span class='orange-text'>" + order + "</span>";
+    }
     
                 document.getElementById("people-text").textContent = Math.floor(Math.random() * (215 - 56 + 1) + 56) + " PESSOAS RECEBERAM ESSA ENTRADA";
     
