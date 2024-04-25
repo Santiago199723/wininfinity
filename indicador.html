@@ -11,8 +11,10 @@
   /* Estilo para o botão */
 .gerenciamento-btn {
     position: fixed; /* Fixa o botão na tela */
-    bottom: 20px; /* Ajusta a distância do botão em relação ao rodapé */
-    right: 20px; /* Ajusta a distância do botão em relação à margem direita */
+    bottom: auto; /* Remova a definição de bottom */
+    top: 50%; /* Centraliza verticalmente */
+    transform: translateY(-50%); /* Ajusta a posição vertical */
+    right: 100px; /* Reduza a distância do botão em relação à margem direita */
     padding: 10px 20px;
     font-size: 16px;
     border: none;
@@ -27,11 +29,11 @@
 /* Adicione este estilo para garantir que o botão seja responsivo em telas pequenas */
 @media screen and (max-width: 768px) {
     .gerenciamento-btn {
-        bottom: 10px; /* Ajuste a distância do botão em relação ao rodapé para telas pequenas */
-        right: 10px; /* Ajuste a distância do botão em relação à margem direita para telas pequenas */
+        right: 20px; /* Ajuste a distância do botão em relação à margem direita para telas pequenas */
         font-size: 14px; /* Reduz o tamanho da fonte do botão para telas pequenas */
     }
 }
+
 
  
     /* Estilo para a imagem */
