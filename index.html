@@ -46,6 +46,25 @@
       margin-top: 20px;
     }
 
+    /* Estilo do link de suporte */
+    .support-link {
+      display: flex;
+      align-items: center;
+      text-decoration: none; /* Remover sublinhado */
+      color: rgb(50, 179, 58); /* Cor do texto */
+      font-family: 'NovaFonte', sans-serif; /* Fonte estilosa */
+      font-size: 15px; /* Tamanho do texto */
+      margin-top: 25px; /* Espaçamento superior */
+      cursor: pointer; /* Cursor ao passar por cima */
+    }
+
+    /* Estilo da imagem de suporte */
+    .support-icon {
+      width: 30px; /* Largura da imagem */
+      height: 30px; /* Altura da imagem */
+      margin-right: 10px; /* Espaçamento à direita */
+    }
+
     /* Restante do seu estilo... */
   </style>
   <title>WIN INFINITY</title>
@@ -82,11 +101,12 @@
         </p>
       </div>
 
-      <!-- Botão de suporte -->
-      <div class="justify-center support-button-container">
-        <button class="support-button" onclick="window.location.href='https://wa.me/5511969296774?text=Ol%C3%A1.+Quero+tirar+uma+d%C3%BAvida%2C+por+favor.'">
-          Suporte
-        </button>
+      <!-- Link de suporte -->
+      <div class="justify-center">
+        <a href="https://wa.me/5511969296774?text=Ol%C3%A1.+Quero+tirar+uma+d%C3%BAvida%2C+por+favor." class="support-link">
+          <img src="suporte.png" alt="Ícone de suporte" class="support-icon">
+          <span style="margin-top: -5px;">Suporte</span>
+        </a>
       </div>
     </div>
   </div>
@@ -125,4 +145,3 @@
   <script src="loading.js"></script>
 </body>
 </html>
-
